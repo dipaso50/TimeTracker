@@ -6,9 +6,9 @@ Esta herramienta está pensada para llevar un registro de tiempo, organizado en 
 ## Uso
 
 ```bash
-$ go get
-$ cd tracker/
-$ go build
+$ git clone https://github.com/dipaso50/TimeTracker.git
+$ cd TimeTracker/
+$ go build -o tracker
 $ ./tracker help
 Time tracker ejecuta pomodoros sobre tareas y registra el tiempo en cada una de ellas.
 
