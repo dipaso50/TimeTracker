@@ -14,10 +14,10 @@ Proyecto Actual :(ID {{.PID}}) {{.CurrentProjectName}}
 Tarea Actual    :(ID {{.TID}}) {{.CurrentTaskName}}     
 
 Tiempo Registrado -------------------------------
-Hoy          : {{.TimeToday | printf "%02d"}}
-Esta semana  : {{.TimeThisWeek | printf "%02d"}}
-Este mes     : {{.TimeThisMonth | printf "%02d"}}
-Total        : {{.TimeTotal | printf "%02d"}}
+Hoy          : {{.TimeToday}}
+Esta semana  : {{.TimeThisWeek}}
+Este mes     : {{.TimeThisMonth}}
+Total        : {{.TimeTotal}}
 
 `
 
@@ -26,10 +26,10 @@ type status struct {
 	CurrentTaskName    string
 	PID                int
 	TID                int
-	TimeToday          int
-	TimeThisWeek       int
-	TimeThisMonth      int
-	TimeTotal          int
+	TimeToday          string
+	TimeThisWeek       string
+	TimeThisMonth      string
+	TimeTotal          string
 }
 
 //PrintStatus print different status information
@@ -69,10 +69,10 @@ func PrintStatus() {
 		CurrentTaskName:    taskName,
 		PID:                pid,
 		TID:                tid,
-		TimeToday:          today,
-		TimeThisWeek:       week,
-		TimeThisMonth:      month,
-		TimeTotal:          total,
+		TimeToday:          minHours(today),
+		TimeThisWeek:       minHours(week),
+		TimeThisMonth:      minHours(month),
+		TimeTotal:          minHours(total),
 	}
 
 	report, err := template.New("report").Parse(statusTemplate)
@@ -87,4 +87,11 @@ func PrintStatus() {
 	if err != nil {
 		fmt.Printf("Error %v", err)
 	}
+}
+
+func minHours(allMin int) string {
+	hh := int(allMin / 60)
+	min := allMin % 60
+
+	return fmt.Sprintf("%02dh:%02dm (%03d min)", hh, min, allMin)
 }
